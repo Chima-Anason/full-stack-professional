@@ -1,0 +1,70 @@
+
+info:
+  app:
+    description: Full stack Application
+    name: AnagraceTech
+    version: 1.0.0
+  company:
+    name: AnagraceTech
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+server:
+  port: 8080
+  error:
+    include-binding-errors: always
+    include-message: always
+    include-stacktrace: on_param
+cors:
+  allowed-origins: "*"
+  allowed-methods: "*"
+  allowed-headers: "*"
+  exposed-headers: "*"
+
+aws:
+  region: eu-west-1
+  s3:
+    mock: true
+    buckets:
+      client: customer
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/customer
+    username: tblynxx
+    password: 123456
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: false
+  main:
+    web-application-type: servlet
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  codec:
+    max-in-memory-size: 10MB
+#spring:
+#    datasource:
+#        driverClassName: org.h2.Driver
+#        password: ''
+#        url: jdbc:h2:mem:testdb
+#        username: sa
+#    h2:
+#        console:
+#            enabled: true
+#            path: /h2
+#    jpa:
+#        database-platform: org.hibernate.dialect.H2Dialect
+#        show-sql: true
+#    main:
+#        banner-mode: 'off'
