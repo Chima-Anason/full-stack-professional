@@ -19,19 +19,19 @@ public class CustomerService {
 
     private final CustomerDao customerDao;
     private final CustomerDTOMapper customerDTOMapper;
- //   private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 //    private final S3Service s3Service;
 //    private final S3Buckets s3Buckets;
 
     public CustomerService(@Qualifier("jdbc") CustomerDao customerDao,
-                           CustomerDTOMapper customerDTOMapper
-                           //PasswordEncoder passwordEncoder,
+                           CustomerDTOMapper customerDTOMapper,
+                           PasswordEncoder passwordEncoder
                           // S3Service s3Service,
                           // S3Buckets s3Buckets
     ) {
         this.customerDao = customerDao;
         this.customerDTOMapper = customerDTOMapper;
-//        this.passwordEncoder = passwordEncoder;
+        this.passwordEncoder = passwordEncoder;
 //        this.s3Service = s3Service;
 //        this.s3Buckets = s3Buckets;
     }
@@ -64,9 +64,7 @@ public class CustomerService {
         Customer customer = new Customer(
                 customerRegistrationRequest.name(),
                 customerRegistrationRequest.email(),
-                // TODO
-                customerRegistrationRequest.password(),
-                //passwordEncoder.encode(customerRegistrationRequest.password()),
+                passwordEncoder.encode(customerRegistrationRequest.password()),
                 customerRegistrationRequest.age(),
                 customerRegistrationRequest.gender());
 
