@@ -30,11 +30,11 @@ public class SecurityFilterChainConfig {
         this.authenticationEntryPoint = authenticationEntryPoint;
     }
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .cors(Customizer.withDefaults())
                 .authorizeHttpRequests()
                 .requestMatchers(
                         HttpMethod.POST,
@@ -57,10 +57,7 @@ public class SecurityFilterChainConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(
-                        jwtAuthenticationFilter,
-                        UsernamePasswordAuthenticationFilter.class
-                )
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPoint);
         return http.build();

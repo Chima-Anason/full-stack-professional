@@ -3,15 +3,11 @@ package com.anagracetech.backend.customer;
 import com.anagracetech.backend.exception.DuplicateResourceException;
 import com.anagracetech.backend.exception.RequestValidationException;
 import com.anagracetech.backend.exception.ResourceNotFoundException;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
