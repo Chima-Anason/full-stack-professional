@@ -19,7 +19,7 @@ public class CustomerService {
 //    private final S3Service s3Service;
 //    private final S3Buckets s3Buckets;
 
-    public CustomerService(@Qualifier("jdbc") CustomerDao customerDao,
+    public CustomerService(@Qualifier("jpa") CustomerDao customerDao,
                            CustomerDTOMapper customerDTOMapper,
                            PasswordEncoder passwordEncoder
                           // S3Service s3Service,
