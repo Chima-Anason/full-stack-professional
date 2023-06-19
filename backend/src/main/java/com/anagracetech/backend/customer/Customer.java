@@ -5,7 +5,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -27,16 +26,15 @@ import java.util.Objects;
 public class Customer implements UserDetails {
 
     @Id
+    @Column(updatable = false)
     @SequenceGenerator(
             name = "customer_id_seq",
-            sequenceName = "customer_id_seq",
-            allocationSize = 1
-    )
+            sequenceName = "customer_id_seq")
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "customer_id_seq"
-    )
-    private Integer id;
+            generator = "customer_id_seq")
+    private Long id;
+
     @Column(
             nullable = false
     )
@@ -69,7 +67,7 @@ public class Customer implements UserDetails {
     public Customer() {
     }
 
-    public Customer(Integer id,
+    public Customer(Long id,
                     String name,
                     String email,
                     String password,
@@ -83,7 +81,7 @@ public class Customer implements UserDetails {
         this.gender = gender;
     }
 
-    public Customer(Integer id,
+    public Customer(Long id,
                     String name,
                     String email,
                     String password,
@@ -106,11 +104,11 @@ public class Customer implements UserDetails {
         this.gender = gender;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
