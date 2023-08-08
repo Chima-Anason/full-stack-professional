@@ -7,13 +7,15 @@ import com.github.javafaker.Faker;
 import com.github.javafaker.Name;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Random;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class, ManagementWebSecurityAutoConfiguration.class})
 public class BackendApplication {
 
     public static void main(String[] args) {
@@ -54,7 +56,7 @@ public class BackendApplication {
         String lastName = name.lastName();
         int age = random.nextInt(16, 99);
         Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
-        String email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@amigoscode.com";
+        String email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@anagraceTech.com";
         Customer customer = new Customer(
                 firstName +  " " + lastName,
                 email,
