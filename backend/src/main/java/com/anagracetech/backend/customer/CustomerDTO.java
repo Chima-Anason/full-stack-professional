@@ -3,7 +3,7 @@ package com.anagracetech.backend.customer;
 import java.util.List;
 
 public record CustomerDTO(
-        Long id,
+        Integer id,
         String name,
         String email,
         Gender gender,
