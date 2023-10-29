@@ -26,7 +26,6 @@ public abstract class AbstractTestcontainers {
                         postgreSQLContainer.getPassword()
                 ).load();
         flyway.migrate();
-        System.out.println();
     }
 
     @Container
