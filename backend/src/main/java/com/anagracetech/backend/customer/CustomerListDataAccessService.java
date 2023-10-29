@@ -16,7 +16,7 @@ public class CustomerListDataAccessService implements CustomerDao {
         customers = new ArrayList<>();
 
         Customer alex = new Customer(
-                1L,
+                1,
                 "Alex",
                 "alex@gmail.com",
                 "password",
@@ -25,7 +25,7 @@ public class CustomerListDataAccessService implements CustomerDao {
         customers.add(alex);
 
         Customer jamila = new Customer(
-                2L,
+                2,
                 "Jamila",
                 "jamila@gmail.com",
                 "password",
@@ -56,6 +56,7 @@ public class CustomerListDataAccessService implements CustomerDao {
         return customers.stream()
                 .anyMatch(c -> c.getEmail().equals(email));
     }
+
 
     @Override
     public boolean existsCustomerById(Integer id) {
