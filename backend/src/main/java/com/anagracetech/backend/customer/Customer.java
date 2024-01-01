@@ -29,11 +29,12 @@ public class Customer implements UserDetails {
     @Column(updatable = false)
     @SequenceGenerator(
             name = "customer_id_seq",
-            sequenceName = "customer_id_seq")
+            sequenceName = "customer_id_seq",
+            allocationSize = 1)
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "customer_id_seq")
-    private Long id;
+    private Integer id;
 
     @Column(
             nullable = false
@@ -67,7 +68,7 @@ public class Customer implements UserDetails {
     public Customer() {
     }
 
-    public Customer(Long id,
+    public Customer(Integer id,
                     String name,
                     String email,
                     String password,
@@ -81,7 +82,7 @@ public class Customer implements UserDetails {
         this.gender = gender;
     }
 
-    public Customer(Long id,
+    public Customer(Integer id,
                     String name,
                     String email,
                     String password,
@@ -104,11 +105,11 @@ public class Customer implements UserDetails {
         this.gender = gender;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
