@@ -1,20 +1,57 @@
-import {Button} from "@chakra-ui/react";
-import SidebarWithHeader from "./shared/SideBar.jsx";
-import {useEffect} from "react";
+import {Wrap, WrapItem, Spinner, Text} from "@chakra-ui/react";
+import SidebarWithHeader from "./components/shared/SideBar.jsx";
+import {useEffect, useState} from "react";
 import {getCustomers} from "./services/client.js";
+import CardWithImage from "./components/Card.jsx";
 
 const App = () => {
 
+    const [customers, setCustomers] = useState([]);
+    const [loading, setLoading] = useState(false);
+
     useEffect(()=>{
-        getCustomers().then(res => {
-            console.log(res)
-        }).catch(err => {
-            console.log(err)
-        })
+        setLoading(true)
+        setTimeout(()=>{
+            getCustomers().then(res => {
+                setCustomers(res.data)
+            }).catch(err => {
+                console.log(err)
+            }).finally(()=>{
+                setLoading(false);
+            })
+        }, 3000)
     })
+
+    if(loading){
+        return (
+            <SidebarWithHeader>
+                <Spinner
+                    thickness='4px'
+                    speed='0.65s'
+                    emptyColor='gray.200'
+                    color='blue.500'
+                    size='xl'
+                />
+            </SidebarWithHeader>
+        )
+    }
+
+    if(customers.length <=0){
+        return (
+            <SidebarWithHeader>
+                <Text>No customers available</Text>
+            </SidebarWithHeader>
+        )
+    }
     return (
         <SidebarWithHeader>
-            <Button colorScheme='teal' variant='outline'>Click me</Button>
+            <Wrap justify={"centre"} spacing={"30px"}>
+                {customers.map((customer, index)=>(
+                    <WrapItem>
+                        <CardWithImage {...customer}/>
+                    </WrapItem>
+                ))}
+            </Wrap>
         </SidebarWithHeader>
     )
 }
