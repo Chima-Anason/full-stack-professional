@@ -52,20 +52,21 @@ public class BackendApplication {
     private static void createRandomCustomer(CustomerRepository customerRepository, PasswordEncoder passwordEncoder) {
         var faker = new Faker();
         Random random = new Random();
-        Name name = faker.name();
-        String firstName = name.firstName();
-        String lastName = name.lastName();
-        int age = random.nextInt(16, 99);
-        Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
-        String email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@anagraceTech.com";
-        Customer customer = new Customer(
-                firstName +  " " + lastName,
-                email,
-                passwordEncoder.encode("password"),
-                age,
-                gender);
-        customerRepository.save(customer);
-        System.out.println(email);
+        for (int i = 0; i < 10; i++) {
+            Name name = faker.name();
+            String firstName = name.firstName();
+            String lastName = name.lastName();
+            int age = random.nextInt(16, 99);
+            Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
+            String email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@anagraceTech.com";
+            Customer customer = new Customer(
+                    firstName +  " " + lastName,
+                    email,
+                    passwordEncoder.encode("password"),
+                    age,
+                    gender);
+            customerRepository.save(customer);
+        }
     }
 
 
