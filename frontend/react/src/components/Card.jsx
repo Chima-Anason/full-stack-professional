@@ -13,7 +13,7 @@ import {
     useColorModeValue,
 } from '@chakra-ui/react'
 
-export default function CardWithImage(id, name, email, age) {
+export default function CardWithImage({id, name, email, age, ...props}) {
     return (
         <Center py={6}>
             <Box

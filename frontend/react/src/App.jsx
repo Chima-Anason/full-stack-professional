@@ -20,7 +20,7 @@ const App = () => {
                 setLoading(false);
             })
         }, 3000)
-    })
+    }, [])
 
     if(loading){
         return (
@@ -47,7 +47,7 @@ const App = () => {
         <SidebarWithHeader>
             <Wrap justify={"centre"} spacing={"30px"}>
                 {customers.map((customer, index)=>(
-                    <WrapItem>
+                    <WrapItem key={customer.id}>
                         <CardWithImage {...customer}/>
                     </WrapItem>
                 ))}
