@@ -3,6 +3,7 @@ import SidebarWithHeader from "./components/shared/SideBar.jsx";
 import {useEffect, useState} from "react";
 import {getCustomers} from "./services/client.js";
 import CardWithImage from "./components/Card.jsx";
+import DrawerForm from "./components/DrawerForm.jsx";
 
 const App = () => {
 
@@ -45,10 +46,11 @@ const App = () => {
     }
     return (
         <SidebarWithHeader>
+            <DrawerForm/>
             <Wrap justify={"centre"} spacing={"30px"}>
                 {customers.map((customer, index)=>(
                     <WrapItem key={customer.id}>
-                        <CardWithImage {...customer}/>
+                        <CardWithImage {...customer} imageNumber={index}/>
                     </WrapItem>
                 ))}
             </Wrap>
