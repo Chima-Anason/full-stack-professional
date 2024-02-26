@@ -2,6 +2,7 @@ import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
 import {Alert, AlertIcon, Box, Button, FormLabel, Input, Select, Stack} from "@chakra-ui/react";
 import {saveCustomer} from "../../services/client.js";
+import {errorNotification, successNotification} from "../../services/notification.js";
 
 const MyTextInput = ({ label, ...props }) => {
     // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
@@ -40,7 +41,7 @@ const MySelect = ({ label, ...props }) => {
 };
 
 // And now we can use these
-const CreateCustomerForm = () => {
+const CreateCustomerForm = ({fetchCustomers}) => {
     return (
         <>
             <Formik
@@ -72,9 +73,17 @@ const CreateCustomerForm = () => {
                    saveCustomer(customer)
                        .then(res => {
                            console.log(res);
-                           alert("Customer saved");
+                           successNotification(
+                               "Customer saved",
+                               `${customer.name} was successfully saved`
+                           )
+                           fetchCustomers();
                        }).catch(err => {
                          console.log(err)
+                       errorNotification(
+                           err.code,
+                           err.response.data.message
+                       )
                    }).finally(()=>{
                        setSubmitting(false);
                    })
