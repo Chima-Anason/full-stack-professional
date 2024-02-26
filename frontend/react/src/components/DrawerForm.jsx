@@ -5,10 +5,12 @@ import {
     DrawerContent,
     DrawerFooter,
     DrawerHeader, DrawerOverlay,
-    Input, useDisclosure
+    useDisclosure
 } from "@chakra-ui/react";
+import CreateCustomerForm from "./shared/CreateCustomerForm.jsx";
 
 const AddIcon = () => "+";
+const CloseIcon = () => "x";
 
 const DrawerForm = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -22,23 +24,17 @@ const DrawerForm = () => {
             <DrawerOverlay />
             <DrawerContent>
                 <DrawerCloseButton />
-                <DrawerHeader>Create your account</DrawerHeader>
+                <DrawerHeader>Create new customer</DrawerHeader>
 
                 <DrawerBody>
-                    <form
-                        id='my-form'
-                        onSubmit={(e) => {
-                            e.preventDefault()
-                            console.log('submitted')
-                        }}
-                    >
-                        <Input name='nickname' placeholder='Type here...' />
-                    </form>
+                    <CreateCustomerForm/>
                 </DrawerBody>
 
                 <DrawerFooter>
-                    <Button type='submit' form='my-form'>
-                        Save
+                    <Button leftIcon={<CloseIcon/>}
+                            colorScheme={"teal"}
+                            onClick={onClose}>
+                        Close
                     </Button>
                 </DrawerFooter>
             </DrawerContent>
