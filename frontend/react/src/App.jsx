@@ -10,17 +10,19 @@ const App = () => {
     const [customers, setCustomers] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    useEffect(()=>{
+    const fetchCustomers = () =>{
         setLoading(true)
-        setTimeout(()=>{
-            getCustomers().then(res => {
-                setCustomers(res.data)
-            }).catch(err => {
-                console.log(err)
-            }).finally(()=>{
-                setLoading(false);
-            })
-        }, 3000)
+        getCustomers().then(res => {
+            setCustomers(res.data)
+        }).catch(err => {
+            console.log(err)
+        }).finally(()=>{
+            setLoading(false);
+        })
+    }
+
+    useEffect(()=>{
+        fetchCustomers();
     }, [])
 
     if(loading){
@@ -40,13 +42,18 @@ const App = () => {
     if(customers.length <=0){
         return (
             <SidebarWithHeader>
-                <Text>No customers available</Text>
+                <DrawerForm
+                    fetchCustomers={fetchCustomers}
+                />
+                <Text mt={5}>No customers available</Text>
             </SidebarWithHeader>
         )
     }
     return (
         <SidebarWithHeader>
-            <DrawerForm/>
+            <DrawerForm
+                fetchCustomers={fetchCustomers}
+            />
             <Wrap justify={"centre"} spacing={"30px"}>
                 {customers.map((customer, index)=>(
                     <WrapItem key={customer.id}>
