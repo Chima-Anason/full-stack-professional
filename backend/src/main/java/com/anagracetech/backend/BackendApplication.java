@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.List;
 import java.util.Random;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class, ManagementWebSecurityAutoConfiguration.class})
@@ -52,6 +53,10 @@ public class BackendApplication {
     private static void createRandomCustomer(CustomerRepository customerRepository, PasswordEncoder passwordEncoder) {
         var faker = new Faker();
         Random random = new Random();
+        List<Customer> customers = customerRepository.findAll();
+        if(customers.size()>0){
+            return;
+        }
         for (int i = 0; i < 10; i++) {
             Name name = faker.name();
             String firstName = name.firstName();
@@ -68,6 +73,4 @@ public class BackendApplication {
             customerRepository.save(customer);
         }
     }
-
-
 }

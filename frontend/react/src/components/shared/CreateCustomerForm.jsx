@@ -47,12 +47,16 @@ const CreateCustomerForm = ({fetchCustomers}) => {
             <Formik
                 initialValues={{
                     name: '',
+                    password: '',
                     email: '',
                     age: 0,
                     gender: '',
                 }}
                 validationSchema={Yup.object({
                     name: Yup.string()
+                        .max(20, 'Must be 20 characters or less')
+                        .required('Required'),
+                    password: Yup.string()
                         .max(20, 'Must be 20 characters or less')
                         .required('Required'),
                     email: Yup.string()
@@ -97,6 +101,12 @@ const CreateCustomerForm = ({fetchCustomers}) => {
                                 name="name"
                                 type="text"
                                 placeholder="Jane"
+                            />
+                            <MyTextInput
+                                label="Password"
+                                name="password"
+                                type="text"
+                                placeholder="123456"
                             />
 
                             <MyTextInput
