@@ -34,7 +34,7 @@ public class SecurityFilterChainConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                //.csrf().disable()
+                .csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.OPTIONS)
                 .permitAll()
@@ -49,6 +49,11 @@ public class SecurityFilterChainConfig {
                         "/api/v1/customers",
                         "/ping",
                         "/api/v1/customers/*/profile-image"
+                )
+                .permitAll()
+                .requestMatchers(
+                        HttpMethod.DELETE,
+                        "/api/v1/customers/*"
                 )
                 .permitAll()
                 .anyRequest()
