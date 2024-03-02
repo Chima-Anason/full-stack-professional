@@ -1,7 +1,7 @@
 import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
 import {Alert, AlertIcon, Box, Button, FormLabel, Input, Select, Stack} from "@chakra-ui/react";
-import {saveCustomer} from "../services/client.js";
+import {saveCustomer, updateCustomer} from "../services/client.js";
 import {errorNotification, successNotification} from "../services/notification.js";
 
 const MyTextInput = ({ label, ...props }) => {
@@ -23,35 +23,12 @@ const MyTextInput = ({ label, ...props }) => {
     );
 };
 
-
-const MySelect = ({ label, ...props }) => {
-    const [field, meta] = useField(props);
-    return (
-        <Box>
-            <FormLabel htmlFor={props.id || props.name}>{label}</FormLabel>
-            <Select {...field} {...props} />
-            {meta.touched && meta.error ? (
-                <Alert className="error" status={"error"} mt={2}>
-                    <AlertIcon/>
-                    {meta.error}
-                </Alert>
-            ) : null}
-        </Box>
-    );
-};
-
 // And now we can use these
-const CreateCustomerForm = ({fetchCustomers}) => {
+const UpdateCustomerForm = ({fetchCustomers, initialValues, customerId}) => {
     return (
         <>
             <Formik
-                initialValues={{
-                    name: '',
-                    password: '',
-                    email: '',
-                    age: 0,
-                    gender: '',
-                }}
+                initialValues={initialValues}
                 validationSchema={Yup.object({
                     name: Yup.string()
                         .max(20, 'Must be 20 characters or less')
@@ -66,21 +43,15 @@ const CreateCustomerForm = ({fetchCustomers}) => {
                         .min(16, 'Must be at least 16 year of age')
                         .max(100, 'Must be less than 100 years')
                         .required('Required'),
-                    gender: Yup.string()
-                        .oneOf(
-                            ['MALE', 'FEMALE'],
-                            'Invalid Gender'
-                        )
-                        .required('Required'),
                 })}
-                onSubmit={(customer, { setSubmitting }) => {
+                onSubmit={(updatedCustomer, { setSubmitting }) => {
                     setSubmitting(true)
-                   saveCustomer(customer)
+                   updateCustomer(customerId, updatedCustomer)
                        .then(res => {
                            console.log(res);
                            successNotification(
-                               "Customer saved",
-                               `${customer.name} was successfully saved`
+                               "Customer updated",
+                               `${updateCustomer.name} was successfully updated`
                            )
                            fetchCustomers();
                        }).catch(err => {
@@ -94,7 +65,7 @@ const CreateCustomerForm = ({fetchCustomers}) => {
                    })
                 }}
             >
-                {(isValid, isSubmitting)=> (
+                {(isValid, isSubmitting, dirty)=> (
                     <Form>
                         <Stack spacing={"24px"}>
                             <MyTextInput
@@ -124,13 +95,7 @@ const CreateCustomerForm = ({fetchCustomers}) => {
                                 placeholder="20"
                             />
 
-                            <MySelect label="Gendre" name="gender">
-                                <option value="">Select a gender</option>
-                                <option value="MALE">Male</option>
-                                <option value="FEMALE">Female</option>
-                            </MySelect>
-
-                            <Button disabled={!isValid || !isSubmitting} type="submit">Submit</Button>
+                            <Button disabled={!(isValid && dirty) || !isSubmitting} type="submit">Submit</Button>
                         </Stack>
                     </Form>
                 )}
@@ -139,4 +104,4 @@ const CreateCustomerForm = ({fetchCustomers}) => {
     );
 };
 
-export default CreateCustomerForm;
+export default UpdateCustomerForm;
