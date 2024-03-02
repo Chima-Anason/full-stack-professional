@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "anagracetech-api",
-      "image": "tblynxx94/anagracetech-api:28.02.2024.14.10.56",
+      "image": "tblynxx94/anagracetech-api:02.03.2024.20.22.06",
       "essential": true,
       "memory": 512,
       "portMappings": [
