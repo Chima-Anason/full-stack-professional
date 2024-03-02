@@ -16,11 +16,6 @@ const CloseIcon = () => "x";
 const UpdateCustomerDrawer = ({fetchCustomers, initialValues, customerId}) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     return <>
-        <Button leftIcon={<AddIcon/>}
-                colorScheme={"teal"}
-                onClick={onOpen}>
-            Update customer
-        </Button>
         <Button
             bg={'gray.200'}
             color={'black'}

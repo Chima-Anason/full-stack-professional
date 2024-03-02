@@ -33,9 +33,6 @@ const UpdateCustomerForm = ({fetchCustomers, initialValues, customerId}) => {
                     name: Yup.string()
                         .max(20, 'Must be 20 characters or less')
                         .required('Required'),
-                    password: Yup.string()
-                        .max(20, 'Must be 20 characters or less')
-                        .required('Required'),
                     email: Yup.string()
                         .email('Invalid email address')
                         .required('Required'),
@@ -51,7 +48,7 @@ const UpdateCustomerForm = ({fetchCustomers, initialValues, customerId}) => {
                            console.log(res);
                            successNotification(
                                "Customer updated",
-                               `${updateCustomer.name} was successfully updated`
+                               `${updatedCustomer.name} was successfully updated`
                            )
                            fetchCustomers();
                        }).catch(err => {
@@ -73,12 +70,6 @@ const UpdateCustomerForm = ({fetchCustomers, initialValues, customerId}) => {
                                 name="name"
                                 type="text"
                                 placeholder="Jane"
-                            />
-                            <MyTextInput
-                                label="Password"
-                                name="password"
-                                type="text"
-                                placeholder="123456"
                             />
 
                             <MyTextInput
