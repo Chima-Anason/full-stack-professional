@@ -19,11 +19,11 @@ export const saveCustomer = async (customer) =>{
     }
 }
 
-export const updateCustomer = async (id, update) =>{
+export const updateCustomer = async (id, updatedCustomer) =>{
     try{
         return await axios.put(
             `${import.meta.env.VITE_API_BASE_URI}/api/v1/customers/${id}`,
-            update
+            updatedCustomer
         )
     }catch(e){
         throw e;
